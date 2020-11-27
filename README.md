@@ -3,9 +3,9 @@
 [![Build Status](https://travis-ci.org/GitbookIO/filterable.png?branch=master)](https://travis-ci.org/GitbookIO/filterable)
 [![NPM version](https://badge.fury.io/js/filterable.svg)](http://badge.fury.io/js/filterable)
 
-Filterable is a Node.JS module to parse [GitHub-like search queries](https://help.github.com/articles/search-syntax/), for example: `cats stars:>10`. It can generate MongoDB or Elasticsearch queries.
+Filterable is a Node.JS module to parse [GitHub-like search queries](https://help.github.com/articles/search-syntax/), for example: `cats stars:>10`. It can generate Elasticsearch queries.
 
-This module is perfect for integrating complex search (like GitHub search) into your application. It integrates perfectly with MongoDB but can also easily be adapted to other databases.
+This module is perfect for integrating complex search (like GitHub search) into your application.
 
 ### Queries
 
@@ -35,12 +35,6 @@ var filterable = require("filterable");
 
 var query = filterable.Query('cats stars:>10')
     .parse();
-```
-
-Output query for a database:
-
-```js
-var mongQuery = query.toMongo();
 ```
 
 Filter and customize queries using `QueryBuilder`:
