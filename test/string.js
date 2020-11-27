@@ -22,13 +22,6 @@ describe('Query#toString', function() {
         assertQuery("NOT name:Samy", 'NOT name:"Samy"');
     });
 
-    it('can convert text', function() {
-        assertQuery("Hello", 'Hello');
-    });
-
-    it('can convert text (multiple)', function() {
-        assertQuery("Hello World", 'Hello World');
-    });
 
     it('can convert numbers operation', function() {
         assertQuery("stars:>10", 'stars:>10');
