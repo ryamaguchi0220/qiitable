@@ -13,7 +13,8 @@ describe('Query#parse', function() {
                 type: '=',
                 field: 'name',
                 value: 'Samy',
-                originalField: 'name'
+                originalField: 'name',
+                invalid: false
             }
         ]);
     });
@@ -24,35 +25,39 @@ describe('Query#parse', function() {
                 type: '=',
                 field: 'name',
                 value: 'Samy Pesse',
-                originalField: 'name'
+                originalField: 'name',
+                invalid: false
             }
         ]);
     });
 
     it('can convert NOT', function() {
-        assertQuery("NOT name:Samy", [
+        assertQuery("NOT+name:Samy", [
             {
                 type: '!=',
                 field: 'name',
                 value: 'Samy',
-                originalField: 'name'
+                originalField: 'name',
+                invalid: false
             }
         ]);
     });
 
     it('can convert NOT (only next condition)', function() {
-        assertQuery("NOT name:Samy followers:10",[
+        assertQuery("NOT+name:Samy+followers:10",[
             {
                 type: '!=',
                 field: 'name',
                 value: 'Samy',
-                originalField: 'name'
+                originalField: 'name',
+                invalid: false
             },
             {
                 type: '=',
                 field: 'followers',
                 value: '10',
-                originalField: 'followers'
+                originalField: 'followers',
+                invalid: false
             }
         ]);
     });
@@ -63,7 +68,7 @@ describe('Query#parse', function() {
     });
 
     it('can detect non-complete queries', function() {
-        var q = filterable.Query('followers:>=100 invalid:test', { rejected: ['invalid'] }).parse();
+        var q = filterable.Query('followers:>=100+invalid:test', { rejected: ['invalid'] }).parse();
         assert.equal(q.isComplete(), false);
     });
 });
