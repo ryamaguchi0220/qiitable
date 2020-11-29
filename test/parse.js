@@ -32,7 +32,7 @@ describe('Query#parse', function() {
     });
 
     it('can convert NOT', function() {
-        assertQuery("NOT+name:Samy", [
+        assertQuery("-name:Samy", [
             {
                 type: '!=',
                 field: 'name',
@@ -44,7 +44,7 @@ describe('Query#parse', function() {
     });
 
     it('can convert NOT (only next condition)', function() {
-        assertQuery("NOT+name:Samy+followers:10",[
+        assertQuery("-name:Samy+followers:10",[
             {
                 type: '!=',
                 field: 'name',
