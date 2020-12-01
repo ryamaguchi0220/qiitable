@@ -1,60 +1,58 @@
-# Filterable
+# Qiitable
 
-[![Build Status](https://travis-ci.org/GitbookIO/filterable.png?branch=master)](https://travis-ci.org/GitbookIO/filterable)
-[![NPM version](https://badge.fury.io/js/filterable.svg)](http://badge.fury.io/js/filterable)
+[![Build Status](https://travis-ci.com/ryamaguchi0220/qiitable.svg?branch=master)](https://travis-ci.com/ryamaguchi0220/qiitable)
+[![NPM version](https://badge.fury.io/js/qiitable.svg)](https://badge.fury.io/js/qiitable)
 
-Filterable is a Node.JS module to parse [GitHub-like search queries](https://help.github.com/articles/search-syntax/), for example: `cats stars:>10`. It can generate Elasticsearch queries.
+Qiitable is a Node.JS module to parse [Qiita-like search queries](https://help.qiita.com/ja/articles/qiita-search-options).
 
-This module is perfect for integrating complex search (like GitHub search) into your application.
+This module is perfect for integrating complex search (like Qiita search) into your application.
 
 ### Queries
 
 | Type | Example |
 | ---- | ------- |
-| Query for tags | `cat` |
-| Query for multiple tags | `cat dog`, `"Hello World"` |
-| Exclude results containing a certain word | `cat NOT dog` |
-| Query for equality | `username:Samypesse`, `name:"Samy Pesse"` |
-| Query for values greater than another value | `stars:>10`, `stars:>=10` |
-| Query for values less than another value | `stars:<100`, `stars:<=100` |
-| Mix query for tags and condition | `cat stars:>10 stars:<100` |
-| Filter qualifiers based on exclusion | `cats stars:>10 NOT language:javascript` |
+| Query for equality | `user:sampleuser`, `user:"sample user"` |
+| Query for not-equality | `-user:sampleuser` |
+| Query for values greater than another value | `stocks:>10`, `stocks:>=10` |
+| Query for values less than another value | `stocks:<100`, `stocks:<=100` |
+| Query for multiple conditions | `tag:JavaScript+created:>=2020-01-01` |
 
 ### How to use it?
 
 Install it using:
 
 ```
-$ npm install filterable
+$ npm install qiitable
 ```
 
 Parse a query string:
 
 ```js
-var filterable = require("filterable");
+var qiitable = require("qiitable");
 
-var query = filterable.Query('cats stars:>10')
-    .parse();
+var query = qiitable.Query('tag:Javascript+created:>=2020-01-01').parse();
 ```
 
 Filter and customize queries using `QueryBuilder`:
 
 ```js
-var builder = filterable.QueryBuilder({
-    // Field using when quering with text
-    textField: 'description'
-});
+var builder = qiitable.QueryBuilder();
 
 // Define mapping, by default all fields are accepted and piped as string
-builder.field('stars', {
+builder.field('stocks', {
     type: Number
+});
+builder.field('created', {
+    type: Date
 });
 
 // Reject a field
 builder.reject('email');
 
-
 // Parse queries (return a Query object)
-var q1 = builder.parse('Hello world')
-var q2 = builder.parse('cats stars:>10');
+builder.parse('tag:JavaScript+stocks:>=10created:>=2020-01-01')
 ```
+
+### Origin
+
+This project started as a fork of [GitbookIO/filterable](https://github.com/GitbookIO/filterable).
