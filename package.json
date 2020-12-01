@@ -1,15 +1,15 @@
 {
-    "name": "filterable",
-    "version": "2.0.1",
+    "name": "qiitable",
+    "version": "0.1.0",
     "main": "lib/index.js",
     "author": {
-        "name": "Samy Pessé",
-        "email": "samy@gitbook.com"
+        "name": "ryamaguchi0220",
+        "email": "ryamaguchi0220@gmail.com"
     },
-    "description": "Parse GitHub-like search queries",
+    "description": "Parse Qiita-like search queries",
     "license": "Apache-2.0",
     "bugs": {
-        "url": "https://github.com/GitbookIO/filterable/issues"
+        "url": "https://github.com/ryamaguchi0220/qiitable/issues"
     },
     "engines": {
         "node": ">=0.12"
@@ -23,12 +23,12 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/GitbookIO/filterable.git"
+        "url": "https://github.com/ryamaguchi0220/qiitable.git"
     },
     "scripts": {
         "test": "mocha --reporter list --bail"
     },
     "keywords": [
-        "github", "search", "filter", "query", "elasticsearch"
+       "qiita", "github", "search", "filter", "query", "parser"
     ]
 }
