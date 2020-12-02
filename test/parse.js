@@ -6,69 +6,221 @@ function assertQuery(q, out) {
 }
 
 describe('Query#parse', function() {
-
-    it('can parse =', function() {
-        assertQuery('name:"Samy"', [
+    it('can parse a condition', function() {
+        assertQuery('user:sampleuser', [
             {
+                field: 'user',
                 operator: '=',
-                field: 'name',
-                value: 'Samy',
-                originalField: 'name',
+                value: 'sampleuser',
+                originalField: 'user',
                 invalid: false
             }
         ]);
     });
 
-    it('can parse = with quotation marks', function() {
-        assertQuery('name:"Samy Pesse"', [
+    it('can parse multiple conditions', function() {
+        assertQuery('user:sampleuser+tag:JavaScript', [
             {
+                field: 'user',
                 operator: '=',
-                field: 'name',
-                value: 'Samy Pesse',
-                originalField: 'name',
-                invalid: false
-            }
-        ]);
-    });
-
-    it('can convert NOT', function() {
-        assertQuery("-name:Samy", [
-            {
-                operator: '!=',
-                field: 'name',
-                value: 'Samy',
-                originalField: 'name',
-                invalid: false
-            }
-        ]);
-    });
-
-    it('can convert NOT (only next condition)', function() {
-        assertQuery("-name:Samy+followers:10",[
-            {
-                operator: '!=',
-                field: 'name',
-                value: 'Samy',
-                originalField: 'name',
+                value: 'sampleuser',
+                originalField: 'user',
                 invalid: false
             },
             {
+                field: 'tag',
                 operator: '=',
-                field: 'followers',
-                value: '10',
-                originalField: 'followers',
+                value: 'JavaScript',
+                originalField: 'tag',
                 invalid: false
+            }
+        ]);
+    });
+
+    it('can parse =', function() {
+        assertQuery('user:=sampleuser', [
+            {
+                field: 'user',
+                operator: '=',
+                value: 'sampleuser',
+                originalField: 'user',
+                invalid: false
+            }
+        ]);
+    });
+
+    it('can parse !=', function() {
+        assertQuery('user:!=sampleuser', [
+            {
+                field: 'user',
+                operator: '!=',
+                value: 'sampleuser',
+                originalField: 'user',
+                invalid: false
+            }
+        ]);
+    });
+
+    it('can parse >', function() {
+        assertQuery('stocks:>10', [
+            {
+                field: 'stocks',
+                operator: '>',
+                value: '10',
+                originalField: 'stocks',
+                invalid: false
+            }
+        ]);
+    });
+
+    it('can parse <', function() {
+        assertQuery('stocks:<100', [
+            {
+                field: 'stocks',
+                operator: '<',
+                value: '100',
+                originalField: 'stocks',
+                invalid: false
+            }
+        ]);
+    });
+
+    it('can parse >=', function() {
+        assertQuery('created:>=2020-01-01', [
+            {
+                field: 'created',
+                operator: '>=',
+                value: '2020-01-01',
+                originalField: 'created',
+                invalid: false
+            }
+        ]);
+    });
+
+    it('can parse <=', function() {
+        assertQuery('created:<=2020-12-31', [
+            {
+                field: 'created',
+                operator: '<=',
+                value: '2020-12-31',
+                originalField: 'created',
+                invalid: false
+            }
+        ]);
+    });
+
+    it('can parse - (not-qualifier)', function() {
+        assertQuery("-user:sampleuser+stocks:>10",[
+            {
+                field: 'user',
+                operator: '!=',
+                value: 'sampleuser',
+                originalField: 'user',
+                invalid: false
+            },
+            {
+                field: 'stocks',
+                operator: '>',
+                value: '10',
+                originalField: 'stocks',
+                invalid: false
+            }
+        ]);
+    });
+
+    it('single quotation marks are removed', function() {
+        assertQuery("'user':'sample user'", [
+            {
+                operator: '=',
+                field: 'user',
+                value: 'sample user',
+                originalField: 'user',
+                invalid: false
+            }
+        ]);
+    });
+
+    it('double quotation marks are removed', function() {
+        assertQuery('"user":"sample user"', [
+            {
+                operator: '=',
+                field: 'user',
+                value: 'sample user',
+                originalField: 'user',
+                invalid: false
+            }
+        ]);
+    });
+
+    it('white spaces are trimed', function() {
+        assertQuery(" tag:JavaScript + stocks:>10 ",[
+            {
+                field: 'tag',
+                operator: '=',
+                value: 'JavaScript',
+                originalField: 'tag',
+                invalid: false
+            },
+            {
+                field: 'stocks',
+                operator: '>',
+                value: '10',
+                originalField: 'stocks',
+                invalid: false
+            }
+        ]);
+    });
+
+    it('white spaces with quotation marks are not trimed', function() {
+        assertQuery("' tag':'JavaScript '+' stocks':'10 '",[
+            {
+                field: ' tag',
+                operator: '=',
+                value: 'JavaScript ',
+                originalField: ' tag',
+                invalid: false
+            },
+            {
+                field: ' stocks',
+                operator: '=',
+                value: '10 ',
+                originalField: ' stocks',
+                invalid: false
+            }
+        ]);
+    });
+
+    it('invalid is true if :(filter delimiter) is not specified', function() {
+        assertQuery('usersampleuser',[
+            {
+                field: 'usersampleuser',
+                operator: '=',
+                value: '',
+                originalField: 'usersampleuser',
+                invalid: true
+            }
+        ]);
+    });
+
+    it('invalid is true if empty field is specified', function() {
+        assertQuery(':sampleuser',[
+            {
+                field: '',
+                operator: '=',
+                value: 'sampleuser',
+                originalField: '',
+                invalid: true
             }
         ]);
     });
 
     it('can detect complete queries', function() {
-        var q = filterable.Query('followers:>=100').parse();
+        var q = filterable.Query('user:sampleuser').parse();
         assert.equal(q.isComplete(), true);
     });
 
     it('can detect non-complete queries', function() {
-        var q = filterable.Query('followers:>=100+invalid:test', { rejected: ['invalid'] }).parse();
+        var q = filterable.Query('user:sampleuser+invalid:test', { rejected: ['invalid'] }).parse();
         assert.equal(q.isComplete(), false);
     });
 });
