@@ -10,7 +10,7 @@ describe('Query#parse', function() {
     it('can parse =', function() {
         assertQuery('name:"Samy"', [
             {
-                type: '=',
+                operator: '=',
                 field: 'name',
                 value: 'Samy',
                 originalField: 'name',
@@ -22,7 +22,7 @@ describe('Query#parse', function() {
     it('can parse = with quotation marks', function() {
         assertQuery('name:"Samy Pesse"', [
             {
-                type: '=',
+                operator: '=',
                 field: 'name',
                 value: 'Samy Pesse',
                 originalField: 'name',
@@ -34,7 +34,7 @@ describe('Query#parse', function() {
     it('can convert NOT', function() {
         assertQuery("-name:Samy", [
             {
-                type: '!=',
+                operator: '!=',
                 field: 'name',
                 value: 'Samy',
                 originalField: 'name',
@@ -46,14 +46,14 @@ describe('Query#parse', function() {
     it('can convert NOT (only next condition)', function() {
         assertQuery("-name:Samy+followers:10",[
             {
-                type: '!=',
+                operator: '!=',
                 field: 'name',
                 value: 'Samy',
                 originalField: 'name',
                 invalid: false
             },
             {
-                type: '=',
+                operator: '=',
                 field: 'followers',
                 value: '10',
                 originalField: 'followers',
