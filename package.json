@@ -1,6 +1,6 @@
 {
     "name": "qiitable",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "main": "lib/index.js",
     "author": {
         "name": "ryamaguchi0220",
