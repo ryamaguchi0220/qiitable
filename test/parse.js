@@ -19,7 +19,7 @@ describe('Query#parse', function() {
     });
 
     it('can parse multiple conditions', function() {
-        assertQuery('user:sampleuser+tag:JavaScript', [
+        assertQuery('user:sampleuser tag:JavaScript', [
             {
                 field: 'user',
                 operator: '=',
@@ -110,7 +110,7 @@ describe('Query#parse', function() {
     });
 
     it('can parse - (not-qualifier)', function() {
-        assertQuery("-user:sampleuser+stocks:>10",[
+        assertQuery("-user:sampleuser stocks:>10",[
             {
                 field: 'user',
                 operator: '!=',
@@ -128,63 +128,13 @@ describe('Query#parse', function() {
         ]);
     });
 
-    it('single quotation marks are removed', function() {
-        assertQuery("'user':'sample user'", [
-            {
-                operator: '=',
-                field: 'user',
-                value: 'sample user',
-                originalField: 'user',
-                invalid: false
-            }
-        ]);
-    });
-
-    it('double quotation marks are removed', function() {
+    it('quotation marks are removed', function() {
         assertQuery('"user":"sample user"', [
             {
                 operator: '=',
                 field: 'user',
                 value: 'sample user',
                 originalField: 'user',
-                invalid: false
-            }
-        ]);
-    });
-
-    it('white spaces are trimed', function() {
-        assertQuery(" tag:JavaScript + stocks:>10 ",[
-            {
-                field: 'tag',
-                operator: '=',
-                value: 'JavaScript',
-                originalField: 'tag',
-                invalid: false
-            },
-            {
-                field: 'stocks',
-                operator: '>',
-                value: '10',
-                originalField: 'stocks',
-                invalid: false
-            }
-        ]);
-    });
-
-    it('white spaces with quotation marks are not trimed', function() {
-        assertQuery("' tag':'JavaScript '+' stocks':'10 '",[
-            {
-                field: ' tag',
-                operator: '=',
-                value: 'JavaScript ',
-                originalField: ' tag',
-                invalid: false
-            },
-            {
-                field: ' stocks',
-                operator: '=',
-                value: '10 ',
-                originalField: ' stocks',
                 invalid: false
             }
         ]);
@@ -220,7 +170,7 @@ describe('Query#parse', function() {
     });
 
     it('can detect non-complete queries', function() {
-        var q = filterable.Query('user:sampleuser+invalid:test', { rejected: ['invalid'] }).parse();
+        var q = filterable.Query('user:sampleuser invalid:test', { rejected: ['invalid'] }).parse();
         assert.equal(q.isComplete(), false);
     });
 });
