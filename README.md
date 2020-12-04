@@ -11,11 +11,12 @@ This module is perfect for integrating complex search (like Qiita search) into y
 
 | Type | Example |
 | ---- | ------- |
+| Query for tags | `Ruby` |
+| Query for multiple tags | `Ruby Rails`, `"Ruby on Rails"` |
 | Query for equality | `user:sampleuser`, `user:"sample user"` |
 | Query for not-equality | `-user:sampleuser` |
 | Query for values greater than another value | `stocks:>10`, `stocks:>=10` |
 | Query for values less than another value | `stocks:<100`, `stocks:<=100` |
-| Query for multiple conditions | `tag:JavaScript created:>=2020-01-01` |
 
 ### How to use it?
 
@@ -30,7 +31,7 @@ Parse a query string:
 ```js
 var qiitable = require("qiitable");
 
-var query = qiitable.Query('tag:Javascript created:>=2020-01-01').parse();
+var query = qiitable.Query('Ruby created:>=2020-01-01').parse();
 ```
 
 Filter and customize queries using `QueryBuilder`:
@@ -50,7 +51,7 @@ builder.field('created', {
 builder.reject('email');
 
 // Parse queries (return a Query object)
-builder.parse('tag:JavaScript stocks:>=10 created:>=2020-01-01')
+builder.parse('Ruby stocks:>=10 created:>=2020-01-01')
 ```
 
 ### Origin

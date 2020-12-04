@@ -12,27 +12,24 @@ describe('Query#parse', function() {
                 field: 'user',
                 operator: '=',
                 value: 'sampleuser',
-                originalField: 'user',
-                invalid: false
+                originalField: 'user'
             }
         ]);
     });
 
     it('can parse multiple conditions', function() {
-        assertQuery('user:sampleuser tag:JavaScript', [
+        assertQuery('Ruby created:>=2020-01-01', [
             {
-                field: 'user',
+                field: 'Ruby',
                 operator: '=',
-                value: 'sampleuser',
-                originalField: 'user',
-                invalid: false
+                value: '',
+                originalField: 'Ruby'
             },
             {
-                field: 'tag',
-                operator: '=',
-                value: 'JavaScript',
-                originalField: 'tag',
-                invalid: false
+                field: 'created',
+                operator: '>=',
+                value: '2020-01-01',
+                originalField: 'created'
             }
         ]);
     });
@@ -43,8 +40,7 @@ describe('Query#parse', function() {
                 field: 'user',
                 operator: '=',
                 value: 'sampleuser',
-                originalField: 'user',
-                invalid: false
+                originalField: 'user'
             }
         ]);
     });
@@ -55,8 +51,7 @@ describe('Query#parse', function() {
                 field: 'user',
                 operator: '!=',
                 value: 'sampleuser',
-                originalField: 'user',
-                invalid: false
+                originalField: 'user'
             }
         ]);
     });
@@ -67,8 +62,7 @@ describe('Query#parse', function() {
                 field: 'stocks',
                 operator: '>',
                 value: '10',
-                originalField: 'stocks',
-                invalid: false
+                originalField: 'stocks'
             }
         ]);
     });
@@ -79,8 +73,7 @@ describe('Query#parse', function() {
                 field: 'stocks',
                 operator: '<',
                 value: '100',
-                originalField: 'stocks',
-                invalid: false
+                originalField: 'stocks'
             }
         ]);
     });
@@ -91,8 +84,7 @@ describe('Query#parse', function() {
                 field: 'created',
                 operator: '>=',
                 value: '2020-01-01',
-                originalField: 'created',
-                invalid: false
+                originalField: 'created'
             }
         ]);
     });
@@ -103,8 +95,7 @@ describe('Query#parse', function() {
                 field: 'created',
                 operator: '<=',
                 value: '2020-12-31',
-                originalField: 'created',
-                invalid: false
+                originalField: 'created'
             }
         ]);
     });
@@ -115,15 +106,13 @@ describe('Query#parse', function() {
                 field: 'user',
                 operator: '!=',
                 value: 'sampleuser',
-                originalField: 'user',
-                invalid: false
+                originalField: 'user'
             },
             {
                 field: 'stocks',
                 operator: '>',
                 value: '10',
-                originalField: 'stocks',
-                invalid: false
+                originalField: 'stocks'
             }
         ]);
     });
@@ -134,32 +123,7 @@ describe('Query#parse', function() {
                 operator: '=',
                 field: 'user',
                 value: 'sample user',
-                originalField: 'user',
-                invalid: false
-            }
-        ]);
-    });
-
-    it('invalid is true if :(filter delimiter) is not specified', function() {
-        assertQuery('usersampleuser',[
-            {
-                field: 'usersampleuser',
-                operator: '=',
-                value: '',
-                originalField: 'usersampleuser',
-                invalid: true
-            }
-        ]);
-    });
-
-    it('invalid is true if empty field is specified', function() {
-        assertQuery(':sampleuser',[
-            {
-                field: '',
-                operator: '=',
-                value: 'sampleuser',
-                originalField: '',
-                invalid: true
+                originalField: 'user'
             }
         ]);
     });
