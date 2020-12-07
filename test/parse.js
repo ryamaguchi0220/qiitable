@@ -11,8 +11,7 @@ describe('Query#parse', function() {
             {
                 field: 'user',
                 operator: '=',
-                value: 'sampleuser',
-                originalField: 'user'
+                value: 'sampleuser'
             }
         ]);
     });
@@ -22,14 +21,12 @@ describe('Query#parse', function() {
             {
                 field: '',
                 operator: '=',
-                value: 'Ruby',
-                originalField: ''
+                value: 'Ruby'
             },
             {
                 field: 'created',
                 operator: '>=',
-                value: '2020-01-01',
-                originalField: 'created'
+                value: '2020-01-01'
             }
         ]);
     });
@@ -39,8 +36,7 @@ describe('Query#parse', function() {
             {
                 field: 'user',
                 operator: '=',
-                value: 'sampleuser',
-                originalField: 'user'
+                value: 'sampleuser'
             }
         ]);
     });
@@ -50,8 +46,7 @@ describe('Query#parse', function() {
             {
                 field: 'user',
                 operator: '!=',
-                value: 'sampleuser',
-                originalField: 'user'
+                value: 'sampleuser'
             }
         ]);
     });
@@ -61,8 +56,7 @@ describe('Query#parse', function() {
             {
                 field: 'stocks',
                 operator: '>',
-                value: '10',
-                originalField: 'stocks'
+                value: '10'
             }
         ]);
     });
@@ -72,8 +66,7 @@ describe('Query#parse', function() {
             {
                 field: 'stocks',
                 operator: '<',
-                value: '100',
-                originalField: 'stocks'
+                value: '100'
             }
         ]);
     });
@@ -83,8 +76,7 @@ describe('Query#parse', function() {
             {
                 field: 'created',
                 operator: '>=',
-                value: '2020-01-01',
-                originalField: 'created'
+                value: '2020-01-01'
             }
         ]);
     });
@@ -94,8 +86,7 @@ describe('Query#parse', function() {
             {
                 field: 'created',
                 operator: '<=',
-                value: '2020-12-31',
-                originalField: 'created'
+                value: '2020-12-31'
             }
         ]);
     });
@@ -105,14 +96,12 @@ describe('Query#parse', function() {
             {
                 field: 'user',
                 operator: '!=',
-                value: 'sampleuser',
-                originalField: 'user'
+                value: 'sampleuser'
             },
             {
                 field: 'stocks',
                 operator: '>',
-                value: '10',
-                originalField: 'stocks'
+                value: '10'
             }
         ]);
     });
@@ -122,8 +111,7 @@ describe('Query#parse', function() {
             {
                 operator: '=',
                 field: 'user',
-                value: 'sample user',
-                originalField: 'user'
+                value: 'sample user'
             }
         ]);
     });
