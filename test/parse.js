@@ -20,10 +20,10 @@ describe('Query#parse', function() {
     it('can parse multiple conditions', function() {
         assertQuery('Ruby created:>=2020-01-01', [
             {
-                field: 'Ruby',
+                field: '',
                 operator: '=',
-                value: '',
-                originalField: 'Ruby'
+                value: 'Ruby',
+                originalField: ''
             },
             {
                 field: 'created',
